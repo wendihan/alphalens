@@ -56,7 +56,7 @@ def factor_information_coefficient(factor_data,
     def src_ic(group):
         f = group['factor']
         _ic = group[utils.get_forward_returns_columns(factor_data.columns)] \
-            .apply(lambda x: stats.spearmanr(x, f)[0])
+            .apply(lambda x: stats.spearmanr(x, f, nan_policy = 'omit')[0])
         return _ic
 
     factor_data = factor_data.copy()
