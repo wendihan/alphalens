@@ -304,6 +304,33 @@ def create_returns_tear_sheet(
     )
 
     plt.show()
+    if "5D" in factor_returns:
+        title = (
+            "Factor Weighted "
+            + ("Group Neutral " if group_neutral else "")
+            + ("Long/Short " if long_short else "")
+            + "Portfolio Cumulative Return (5D Period)"
+        )
+
+        plotting.plot_cumulative_returns(
+            factor_returns["5D"], period="5D", title=title, ax=gf.next_row()
+        )
+
+        plotting.plot_cumulative_returns_by_quantile(
+            mean_quant_ret_bydate["5D"], period="5D", ax=gf.next_row()
+        )
+
+    ax_mean_quantile_returns_spread_ts = [
+        gf.next_row() for x in range(fr_cols)
+    ]
+    plotting.plot_mean_quantile_returns_spread_time_series(
+        mean_ret_spread_quant,
+        std_err=std_spread_quant,
+        bandwidth=0.5,
+        ax=ax_mean_quantile_returns_spread_ts,
+    )
+
+    plt.show()
     gf.close()
 
     if by_group:
